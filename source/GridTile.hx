@@ -98,7 +98,7 @@ class GridTile extends FlxSprite
 
 	public function getBlockGraphicId(_id:String)
 	{
-		return 'assets/textures/tiles/${getBlockGraphicId(_id)}.png';
+		return 'assets/textures/tiles/$_id.png';
 	}
 
 	override function setPosition(x:Float = 0.0, y:Float = 0.0)
