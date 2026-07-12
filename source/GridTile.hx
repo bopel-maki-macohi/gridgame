@@ -131,7 +131,13 @@ class GridTile extends FlxSprite
 		for (layer in graphic_layers)
 		{
 			if (layer == null)
+			{
 				graphic_layers.remove(layer);
+				continue;
+			}
+
+			if (!layer.visible)
+				continue;
 
 			layer.setPosition(this.x, this.y);
 			layer.cameras = cameras;

@@ -75,8 +75,7 @@ class FunctionalGridTile extends GridTile
 				setBlock('dirt-tilled');
 
 			case 'dirt-tilled':
-				if (tick_random.bool(5))
-					setBlock('wheat');
+				setBlock('wheat');
 		}
 	}
 
