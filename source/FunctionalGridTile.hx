@@ -9,7 +9,7 @@ class FunctionalGridTile extends GridTile
 		switch (this.id)
 		{
 			case 'dirt-tilled':
-				data.untill_tick = (tick_rate * (20 + tick_random.float(1, 10)));
+				data.untill_tick = getWaitTick(20, 1, 10);
 
 			case 'wheat':
 				var wheat_layer:GridTileLayer = new GridTileLayer(getBlockGraphicId('wheat'), true, 16, 16);
@@ -17,6 +17,9 @@ class FunctionalGridTile extends GridTile
 				wheat_layer.animation.pause();
 				wheat_layer.animation.frameIndex = 0;
 				graphic_layers.push(wheat_layer);
+
+				data.growth = 0;
+				data.growth_tick = getWaitTick(32, 10, 20);
 		}
 	}
 

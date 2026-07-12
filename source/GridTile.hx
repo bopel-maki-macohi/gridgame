@@ -101,6 +101,11 @@ class GridTile extends FlxSprite
 		return 'assets/textures/tiles/$_id.png';
 	}
 
+	function getWaitTick(base = 0.0, min_random = 1.0, max_random = 1.0):Float
+	{
+		return (tick_rate * (base + tick_random.float(min_random, max_random)));
+	}
+
 	override function setPosition(x:Float = 0.0, y:Float = 0.0)
 	{
 		grid_x = x;
