@@ -12,6 +12,11 @@ class FunctionalGridTile extends GridTile
 				data.untill_tick = (tick_rate * (20 + tick_random.float(1, 10)));
 
 			case 'wheat':
+				var wheat_layer:GridTileLayer = new GridTileLayer(getBlockGraphicId('wheat'), true, 16, 16);
+				wheat_layer.animation.add('growth', [0, 1, 2], 1, false);
+				wheat_layer.animation.pause();
+				wheat_layer.animation.frameIndex = 0;
+				graphic_layers.push(wheat_layer);
 		}
 	}
 
@@ -48,12 +53,6 @@ class FunctionalGridTile extends GridTile
 		{
 			case 'wheat':
 				super.loadBlockGraphic('dirt-tilled');
-
-				var wheat_layer:GridTileLayer = new GridTileLayer(getBlockGraphicId('wheat'), true, 16, 16);
-				wheat_layer.animation.add('growth', [0,1,2],1,false);
-				wheat_layer.animation.pause();
-				wheat_layer.animation.frameIndex = 0;
-				graphic_layers.push(wheat_layer);
 
 			default:
 				super.loadBlockGraphic(_id);
