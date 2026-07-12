@@ -19,6 +19,7 @@ class FunctionalGridTile extends GridTile
 				graphic_layers.push(wheat_layer);
 
 				data.growth = 0;
+				data.growth_max = 2;
 				data.growth_tick = getWaitTick(32, 10, 20);
 		}
 	}
@@ -33,6 +34,13 @@ class FunctionalGridTile extends GridTile
 				if (tick_value > data.untill_tick)
 					if (tick_random.bool(10))
 						setBlock('dirt');
+			case 'wheat':
+				if (data.growth < data.growth_max && tick_value > data.growth_tick)
+					if (tick_random.bool(10))
+					{
+						data.growth++;
+						graphic_layers[0].animation.frameIndex = data.growth;
+					}
 		}
 	}
 
