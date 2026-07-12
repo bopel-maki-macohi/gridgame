@@ -1,16 +1,31 @@
 package;
 
+import flixel.group.FlxSpriteGroup;
 import flixel.FlxState;
 
 class PlayState extends FlxState
 {
-	override public function create()
+	var width:Int = 16;
+	var height:Int = 4;
+
+	var grid:FlxTypedSpriteGroup<GridTile>;
+
+	override function create()
 	{
 		super.create();
-	}
 
-	override public function update(elapsed:Float)
-	{
-		super.update(elapsed);
+		grid = new FlxTypedSpriteGroup<GridTile>();
+		add(grid);
+
+		for (y in 0...height)
+		{
+			for (x in 0...width)
+			{
+				var tile = new GridTile('', x, y);
+				grid.add(tile);
+			}
+		}
+
+		grid.screenCenter();
 	}
 }
