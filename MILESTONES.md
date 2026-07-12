@@ -7,7 +7,7 @@
     - Added README explaining the version system
     - MILESTONES markdown file
 
-- [ ] Milestone 4 : Grid tile clicking
+- [x] Milestone 4 : Grid tile clicking
 
 - [ ] Milestone 5 : ? ? ?
 
