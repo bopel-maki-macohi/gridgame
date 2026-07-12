@@ -1,3 +1,4 @@
+import flixel.FlxG;
 import flixel.math.FlxRandom;
 import flixel.FlxSprite;
 
@@ -13,15 +14,20 @@ class GridTile extends FlxSprite
 
 		setGraphicSize(32);
 		updateHitbox();
+
+		data = {};
+		tick_value = 0;
+		tick_timer = 0;
+		tick_rate = 20;
 	}
 
-	public var tick_value(default, null):Int = 0;
-	public var tick_timer(default, null):Int = 0;
-	public var tick_rate(default, null):Int = 20;
+	public var tick_value(default, null):Int;
+	public var tick_timer(default, null):Int;
+	public var tick_rate(default, null):Int;
 	public var tick_random(default, null):FlxRandom;
 
-	public var grid_x(default, set):Float = 0;
-	public var grid_y(default, set):Float = 0;
+	public var grid_x(default, set):Float;
+	public var grid_y(default, set):Float;
 
 	function set_grid_x(_grid_x):Float
 	{
@@ -62,9 +68,16 @@ class GridTile extends FlxSprite
 
 			tick_timer = 0;
 		}
+
+		if (FlxG.mouse.overlaps(this) && FlxG.mouse.justPressed)
+		{
+			clicked();
+		}
 	}
 
 	public function tick() {}
+
+	public function clicked() {}
 
 	override function setPosition(x:Float = 0.0, y:Float = 0.0)
 	{

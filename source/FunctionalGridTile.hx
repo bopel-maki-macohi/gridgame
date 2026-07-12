@@ -17,12 +17,21 @@ class FunctionalGridTile extends GridTile
 
 		switch (id)
 		{
-			case 'dirt':
-
 			case 'dirt-tilled':
 				if (tick_value > data.untill_tick)
 					if (tick_random.bool(10))
 						setBlock('dirt');
+		}
+	}
+
+	override function clicked()
+	{
+		super.clicked();
+
+		switch (id)
+		{
+			case 'dirt':
+				setBlock('dirt-tilled');
 		}
 	}
 }
