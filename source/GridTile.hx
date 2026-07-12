@@ -5,6 +5,8 @@ import flixel.FlxSprite;
 
 class GridTile extends FlxSprite
 {
+	public static var TILE_SIZE:Int = 32;
+
 	public var id(default, null):String;
 
 	public function setBlock(_id:String)
@@ -13,7 +15,7 @@ class GridTile extends FlxSprite
 
 		loadBlockGraphic(_id);
 
-		setGraphicSize(32);
+		setGraphicSize(TILE_SIZE);
 		updateHitbox();
 
 		data = {};
@@ -53,7 +55,7 @@ class GridTile extends FlxSprite
 
 	public var data:Dynamic = {};
 
-	public var graphic_layers:Array<FlxSprite> = [];
+	public var graphic_layers:Array<GridTileLayer> = [];
 
 	override public function new(id:String, ?x:Float = 0, ?y:Float = 0)
 	{
@@ -91,12 +93,12 @@ class GridTile extends FlxSprite
 
 	public function loadBlockGraphic(_id:String)
 	{
-		loadGraphic('assets/textures/tiles/${getBlockGraphicId(_id)}.png');
+		loadGraphic(getBlockGraphicId(_id));
 	}
 
 	public function getBlockGraphicId(_id:String)
 	{
-		return _id;
+		return 'assets/textures/tiles/${getBlockGraphicId(_id)}.png';
 	}
 
 	override function setPosition(x:Float = 0.0, y:Float = 0.0)

@@ -1,3 +1,5 @@
+import flixel.FlxSprite;
+
 class FunctionalGridTile extends GridTile
 {
 	override function setBlock(_id:String)
@@ -8,6 +10,8 @@ class FunctionalGridTile extends GridTile
 		{
 			case 'dirt-tilled':
 				data.untill_tick = (tick_rate * (20 + tick_random.float(1, 10)));
+
+			case 'wheat':
 		}
 	}
 
@@ -32,6 +36,32 @@ class FunctionalGridTile extends GridTile
 		{
 			case 'dirt':
 				setBlock('dirt-tilled');
+
+			case 'dirt-tilled':
+				setBlock('wheat');
 		}
+	}
+
+	override function loadBlockGraphic(_id:String)
+	{
+		switch (_id)
+		{
+			case 'wheat':
+				super.loadBlockGraphic('dirt-tilled');
+
+				var wheat_layer:GridTileLayer = new GridTileLayer(getBlockGraphicId('wheat'), true, 16, 16);
+				wheat_layer.animation.add('growth', [0,1,2],1,false);
+				wheat_layer.animation.pause();
+				wheat_layer.animation.frameIndex = 0;
+				graphic_layers.push(wheat_layer);
+
+			default:
+				super.loadBlockGraphic(_id);
+		}
+	}
+
+	override function getBlockGraphicId(_id:String):String
+	{
+		return super.getBlockGraphicId(_id);
 	}
 }
