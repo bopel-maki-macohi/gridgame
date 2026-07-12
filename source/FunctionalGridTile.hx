@@ -64,7 +64,7 @@ class FunctionalGridTile extends GridTile
 		switch (_id)
 		{
 			case 'wheat':
-				super.loadBlockGraphic('dirt-tilled');
+				super.loadBlockGraphic('dirt-farming');
 
 			default:
 				super.loadBlockGraphic(_id);
