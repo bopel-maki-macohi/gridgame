@@ -1,5 +1,4 @@
 import flixel.math.FlxRandom;
-import flixel.util.FlxColor;
 import flixel.FlxSprite;
 
 class GridTile extends FlxSprite
@@ -14,12 +13,6 @@ class GridTile extends FlxSprite
 
 		setGraphicSize(32);
 		updateHitbox();
-
-		switch (this.id)
-		{
-			case 'dirt-tilled':
-				data.untill_tick = (tick_rate * (20 + tick_random.float(1, 10)));
-		}
 	}
 
 	public var tick_value(default, null):Int = 0;
@@ -50,7 +43,7 @@ class GridTile extends FlxSprite
 	{
 		super();
 
-        tick_random = new FlxRandom();
+		tick_random = new FlxRandom();
 
 		setBlock(id);
 
@@ -71,18 +64,7 @@ class GridTile extends FlxSprite
 		}
 	}
 
-	public function tick()
-	{
-		switch (id)
-		{
-			case 'dirt':
-
-			case 'dirt-tilled':
-				if (tick_value > data.untill_tick)
-					if (tick_random.bool(10))
-						setBlock('dirt');
-		}
-	}
+	public function tick() {}
 
 	override function setPosition(x:Float = 0.0, y:Float = 0.0)
 	{
