@@ -1,3 +1,4 @@
+import flixel.math.FlxRandom;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 
@@ -5,17 +6,99 @@ class GridTile extends FlxSprite
 {
 	public var id(default, null):String;
 
+	public function setBlock(_id:String)
+	{
+		this.id = _id.toLowerCase();
+
+		loadGraphic('assets/textures/tiles/$id.png');
+
+		setGraphicSize(32);
+		updateHitbox();
+
+		switch (this.id)
+		{
+			case 'dirt-tilled':
+				data.untill_tick = (tick_rate * (20 + tick_random.float(1, 10)));
+		}
+	}
+
+	public var tick_value(default, null):Int = 0;
+	public var tick_timer(default, null):Int = 0;
+	public var tick_rate(default, null):Int = 20;
+	public var tick_random(default, null):FlxRandom;
+
+	public var grid_x(default, set):Float = 0;
+	public var grid_y(default, set):Float = 0;
+
+	function set_grid_x(_grid_x):Float
+	{
+		@:bypassAccessor
+		x = _grid_x * width;
+		return grid_x = _grid_x;
+	}
+
+	function set_grid_y(_grid_y):Float
+	{
+		@:bypassAccessor
+		y = _grid_y * width;
+		return grid_y = _grid_y;
+	}
+
+	public var data:Dynamic = {};
+
 	override public function new(id:String, ?x:Float = 0, ?y:Float = 0)
 	{
 		super();
 
-		this.id = id;
+        tick_random = new FlxRandom();
 
-        loadGraphic('assets/textures/tiles/$id.png');
-        
-		setGraphicSize(32);
-        updateHitbox();
+		setBlock(id);
 
-		setPosition(x * width, y * width);
+		grid_x = x;
+		grid_y = y;
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if (tick_timer % tick_rate == 0)
+		{
+			tick_value++;
+			tick();
+
+			tick_timer = 0;
+		}
+	}
+
+	public function tick()
+	{
+		switch (id)
+		{
+			case 'dirt':
+
+			case 'dirt-tilled':
+				if (tick_value > data.untill_tick)
+					if (tick_random.bool(10))
+						setBlock('dirt');
+		}
+	}
+
+	override function setPosition(x:Float = 0.0, y:Float = 0.0)
+	{
+		grid_x = x;
+		grid_y = y;
+	}
+
+	@:deprecated('Use grid_x')
+	override function set_x(_x):Float
+	{
+		return super.set_x(_x);
+	}
+
+	@:deprecated('Use grid_y')
+	override function set_y(_y):Float
+	{
+		return super.set_y(_y);
 	}
 }
