@@ -1,3 +1,4 @@
+import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
 import flixel.math.FlxRandom;
 import flixel.FlxSprite;
@@ -10,7 +11,7 @@ class GridTile extends FlxSprite
 	{
 		this.id = _id.toLowerCase();
 
-		loadGraphic('assets/textures/tiles/$id.png');
+		loadBlockGraphic(_id);
 
 		setGraphicSize(32);
 		updateHitbox();
@@ -19,6 +20,13 @@ class GridTile extends FlxSprite
 		tick_value = 0;
 		tick_timer = 0;
 		tick_rate = 20;
+
+		for (layer in graphic_layers)
+		{
+			graphic_layers.remove(layer);
+			layer.destroy();
+			layer = null;
+		}
 	}
 
 	public var tick_value(default, null):Int;
@@ -44,6 +52,8 @@ class GridTile extends FlxSprite
 	}
 
 	public var data:Dynamic = {};
+
+	public var graphic_layers:Array<FlxSprite> = [];
 
 	override public function new(id:String, ?x:Float = 0, ?y:Float = 0)
 	{
@@ -79,6 +89,16 @@ class GridTile extends FlxSprite
 
 	public function clicked() {}
 
+	public function loadBlockGraphic(_id:String)
+	{
+		loadGraphic('assets/textures/tiles/${getBlockGraphicId(_id)}.png');
+	}
+
+	public function getBlockGraphicId(_id:String)
+	{
+		return _id;
+	}
+
 	override function setPosition(x:Float = 0.0, y:Float = 0.0)
 	{
 		grid_x = x;
@@ -95,5 +115,19 @@ class GridTile extends FlxSprite
 	override function set_y(_y):Float
 	{
 		return super.set_y(_y);
+	}
+
+	override function draw()
+	{
+		super.draw();
+
+		for (layer in graphic_layers)
+		{
+			if (layer == null)
+				graphic_layers.remove(layer);
+
+			layer.cameras = cameras;
+			layer.draw();
+		}
 	}
 }
