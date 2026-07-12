@@ -1,5 +1,6 @@
 package;
 
+import lime.utils.Assets;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 

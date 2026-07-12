@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxState;
 
@@ -21,7 +22,7 @@ class PlayState extends FlxState
 		{
 			for (x in 0...width)
 			{
-				var tile = new GridTile('', x, y);
+				var tile = new GridTile((FlxG.random.bool() ? 'dirt-tilled' : 'dirt'), x, y);
 				grid.add(tile);
 			}
 		}

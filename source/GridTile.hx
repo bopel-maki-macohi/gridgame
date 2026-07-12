@@ -11,8 +11,10 @@ class GridTile extends FlxSprite
 
 		this.id = id;
 
-		makeGraphic(32, 32, FlxColor.WHITE);
+        loadGraphic('assets/textures/tiles/$id.png');
+        
 		setGraphicSize(32);
+        updateHitbox();
 
 		setPosition(x * width, y * width);
 	}
