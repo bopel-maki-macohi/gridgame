@@ -34,6 +34,6 @@ class PlayState extends FlxState
 		inventory = new Inventory();
 		add(inventory);
 		inventory.screenCenter();
-		inventory.y = FlxG.height - Inventory.INVENTORY_SLOT_SIZE;
+		inventory.y = FlxG.height - (Inventory.INVENTORY_SLOT_SIZE * 1.25);
 	}
 }
