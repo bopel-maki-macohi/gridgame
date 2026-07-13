@@ -1,7 +1,7 @@
 import flixel.FlxG;
 import flixel.FlxSprite;
 
-class GridTileLayer extends FlxSprite
+class TileLayer extends FlxSprite
 {
 	override public function new(path:String, animated = false, w = 0, h = 0)
 	{
@@ -9,7 +9,7 @@ class GridTileLayer extends FlxSprite
 
 		loadGraphic(path, animated, w, h);
 
-        setGraphicSize(GridTile.TILE_SIZE);
+        setGraphicSize(Tile.TILE_SIZE);
         updateHitbox();
 
 		@:bypassAccessor

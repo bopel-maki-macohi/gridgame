@@ -2,9 +2,9 @@ import flixel.FlxSprite;
 
 class FunctionalGridTile extends GridTile
 {
-	override function setBlock(_id:String)
+	override function setTile(_id:String)
 	{
-		super.setBlock(_id);
+		super.setTile(_id);
 
 		switch (this.id)
 		{
@@ -12,7 +12,7 @@ class FunctionalGridTile extends GridTile
 				data.untill_tick = getWaitTick(20, 1, 10);
 
 			case 'wheat':
-				var wheat_layer:GridTileLayer = new GridTileLayer(getBlockGraphicId('wheat'), true, 16, 16);
+				var wheat_layer:TileLayer = new TileLayer(getTileGraphic('wheat'), true, 16, 16);
 				wheat_layer.animation.add('growth', [0, 1, 2], 1, false);
 				wheat_layer.animation.pause();
 				wheat_layer.animation.frameIndex = 0;
@@ -34,7 +34,7 @@ class FunctionalGridTile extends GridTile
 			case 'dirt-tilled':
 				if (tick_value > data.untill_tick)
 					if (tick_random.bool(10))
-						setBlock('dirt');
+						setTile('dirt');
 
 			case 'wheat':
 				if (data.growth < data.growth_max)
@@ -60,7 +60,7 @@ class FunctionalGridTile extends GridTile
 					if (data.growth < -1)
 					{
 						final previous_tick = tick_value;
-						setBlock('dirt-tilled');
+						setTile('dirt-tilled');
 						tick_value = tick_random.int(0, previous_tick);
 					}
 				}
@@ -74,27 +74,27 @@ class FunctionalGridTile extends GridTile
 		switch (id)
 		{
 			case 'dirt':
-				setBlock('dirt-tilled');
+				setTile('dirt-tilled');
 
 			case 'dirt-tilled':
-				setBlock('wheat');
+				setTile('wheat');
 		}
 	}
 
-	override function loadBlockGraphic(_id:String)
+	override function loadTileGraphic(_id:String)
 	{
 		switch (_id)
 		{
 			case 'wheat':
-				super.loadBlockGraphic('dirt-farming');
+				super.loadTileGraphic('dirt-farming');
 
 			default:
-				super.loadBlockGraphic(_id);
+				super.loadTileGraphic(_id);
 		}
 	}
 
-	override function getBlockGraphicId(_id:String):String
+	override function getTileGraphic(_id:String):String
 	{
-		return super.getBlockGraphicId(_id);
+		return super.getTileGraphic(_id);
 	}
 }
