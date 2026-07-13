@@ -42,23 +42,37 @@ class Inventory extends FlxObject
 
 		for (i in 0...INVENTORY_SLOTS)
 		{
-			slots.push({});
+			setSlot(i, null);
 		}
+
+		setSlot(0, 'wheat');
+	}
+
+	public function setSlot(slot = 0, item = '')
+	{
+		while ((slots.length - 1) < slot)
+			slots.push({
+				item: null,
+			});
+
+		slots[slot].item = item;
 	}
 
 	override function draw()
 	{
 		final halflen = Math.round(slots.length / 2);
 
-		for (i in -halflen...halflen)
+		for (increment => slot in slots)
 		{
-			var render = [
+			final i = increment - halflen;
+
+			var render:Array<FlxObject> = [
 				slot_graphic_bg,
-				slot_graphic_slot_item,
-				((i == slot - halflen) ? slot_graphic_slot_selection : slot_graphic_slot_outline),
+				((slot.item != null && slot.item.length > 0) ? slot_graphic_slot_item : null),
+				((i == this.slot - halflen) ? slot_graphic_slot_selection : slot_graphic_slot_outline),
 			];
 
-			slot_graphic_slot_item?.setTile('wheat');
+			slot_graphic_slot_item?.setTile(slot.item);
 			slot_graphic_slot_item?.offset.subtract(2, 2);
 
 			for (renderable in render)
