@@ -11,6 +11,8 @@ class PlayState extends FlxState
 
 	var grid:FlxTypedSpriteGroup<FunctionalGridTile>;
 
+	var inventory:Inventory;
+
 	override function create()
 	{
 		super.create();
@@ -28,5 +30,9 @@ class PlayState extends FlxState
 		}
 
 		grid.screenCenter();
+
+		inventory = new Inventory();
+		add(inventory);
+		inventory.screenCenter(XY);
 	}
 }
