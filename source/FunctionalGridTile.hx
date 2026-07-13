@@ -53,6 +53,8 @@ class FunctionalGridTile extends GridTile
 
 						graphic_layers[0].animation.frameIndex = data.growth;
 						graphic_layers[0].visible = data.growth >= 0;
+
+						tick_value = 0;
 					}
 
 					if (data.growth < -1)
