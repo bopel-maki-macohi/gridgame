@@ -68,7 +68,7 @@ class Inventory extends FlxObject
 
 			var render:Array<FlxObject> = [
 				slot_graphic_bg,
-				((slot.item != null && slot.item.length > 0) ? slot_graphic_slot_item : null),
+				((slot.item != null && slot.item != '') ? slot_graphic_slot_item : null),
 				((i == this.slot - halflen) ? slot_graphic_slot_selection : slot_graphic_slot_outline),
 			];
 

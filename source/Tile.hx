@@ -1,3 +1,4 @@
+import lime.utils.Assets;
 import flixel.FlxLayeredSprite;
 import flixel.graphics.FlxGraphic;
 import flixel.FlxG;
@@ -9,14 +10,26 @@ class Tile extends FlxLayeredSprite<TileLayer>
 
 	public var id(default, null):String;
 
+	var invalid_ids:Array<String> = [];
+
 	public function setTile(_id:String)
 	{
-		if (_id == null)
+		id = _id?.toLowerCase();
+
+		if (id == null || invalid_ids.contains(id))
+		{
+			id = null;
 			return;
+		}
 
-		this.id = _id.toLowerCase();
-
-		loadTileGraphic(_id);
+		if (Assets.exists(getTileGraphic(_id)))
+			loadTileGraphic(_id);
+		else
+		{
+			invalid_ids.push(id);
+			id = null;
+			return;
+		}
 
 		setGraphicSize(TILE_SIZE);
 		updateHitbox();
