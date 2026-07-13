@@ -27,7 +27,7 @@ class Inventory extends FlxObject
 	var slot_graphic_bg:InventorySlotGraphic;
 	var slot_graphic_slot_selection:InventorySlotGraphic;
 	var slot_graphic_slot_outline:InventorySlotGraphic;
-	var slot_graphic_slot_item:Item;
+	var slot_graphic_slot_items:Array<Item> = [];
 
 	override public function new()
 	{
@@ -38,13 +38,12 @@ class Inventory extends FlxObject
 		slot_graphic_slot_outline = new InventorySlotGraphic('border');
 		slot_graphic_slot_outline.alpha = 0.3;
 
-		slot_graphic_slot_item = new Item(null);
-
 		slot_graphic_slot_selection = new InventorySlotGraphic('border');
 
 		for (i in 0...INVENTORY_SLOTS)
 		{
 			setSlot(i, null);
+			slot_graphic_slot_items.push(new Item(null));
 		}
 
 		setSlot(0, 'wheat');
@@ -69,14 +68,14 @@ class Inventory extends FlxObject
 		{
 			final i = increment - halflen;
 
+			slot_graphic_slot_items[increment]?.setTile(slot.item);
+			slot_graphic_slot_items[increment]?.offset.subtract(2, 2);
+
 			var render:Array<FlxSprite> = [
 				slot_graphic_bg,
-				((slot.item != null && slot.item != '') ? slot_graphic_slot_item : null),
+				((slot_graphic_slot_items[increment].id != null) ? slot_graphic_slot_items[increment] : null),
 				((i == this.slot - halflen) ? slot_graphic_slot_selection : slot_graphic_slot_outline),
 			];
-
-			slot_graphic_slot_item?.setTile(slot.item);
-			slot_graphic_slot_item?.offset.subtract(2, 2);
 
 			for (renderable in render)
 			{
