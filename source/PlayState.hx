@@ -36,4 +36,14 @@ class PlayState extends FlxState
 		inventory.screenCenter();
 		inventory.y = FlxG.height - (Inventory.INVENTORY_SLOT_SIZE * 1.25);
 	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if (FlxG.keys.anyJustPressed([A, LEFT]))
+			inventory.slot--;
+		if (FlxG.keys.anyJustPressed([D, RIGHT]))
+			inventory.slot++;
+	}
 }

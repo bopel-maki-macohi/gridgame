@@ -10,7 +10,17 @@ class Inventory extends FlxObject
 	public static var INVENTORY_SLOT_SIZE:Int = 36;
 
 	public var slots:Array<InventorySlot> = [];
-	public var slot:Int = 0;
+	public var slot(default, set):Int = 0;
+
+	function set_slot(_slot):Int
+	{
+		if (_slot < 0)
+			_slot = slots.length - 1;
+		if (_slot > slots.length - 1)
+			_slot = 0;
+
+		return this.slot = _slot;
+	}
 
 	var slot_graphic_bg:InventorySlotGraphic;
 	var slot_graphic_slot_outline:InventorySlotGraphic;
@@ -38,12 +48,25 @@ class Inventory extends FlxObject
 
 		for (i in -halflen...halflen)
 		{
-			if (slot_graphic_bg != null)
+			if (i == slot - halflen)
 			{
-				slot_graphic_bg.cameras = cameras;
-				slot_graphic_bg.x = this.x + (i * INVENTORY_SLOT_SIZE);
-				slot_graphic_bg.y = this.y;
-				slot_graphic_bg.draw();
+				if (slot_graphic_slot_selection != null)
+				{
+					slot_graphic_slot_selection.cameras = cameras;
+					slot_graphic_slot_selection.x = this.x + (i * INVENTORY_SLOT_SIZE);
+					slot_graphic_slot_selection.y = this.y;
+					slot_graphic_slot_selection.draw();
+				}
+			}
+			else
+			{
+				if (slot_graphic_bg != null)
+				{
+					slot_graphic_bg.cameras = cameras;
+					slot_graphic_bg.x = this.x + (i * INVENTORY_SLOT_SIZE);
+					slot_graphic_bg.y = this.y;
+					slot_graphic_bg.draw();
+				}
 			}
 
 			if (slot_graphic_slot_outline != null)
@@ -53,14 +76,6 @@ class Inventory extends FlxObject
 				slot_graphic_slot_outline.y = this.y;
 				slot_graphic_slot_outline.draw();
 			}
-		}
-
-		if (slot_graphic_slot_selection != null)
-		{
-			slot_graphic_slot_selection.cameras = cameras;
-			slot_graphic_slot_selection.x = this.x + (slot * INVENTORY_SLOT_SIZE);
-			slot_graphic_slot_selection.y = this.y;
-			slot_graphic_slot_selection.draw();
 		}
 	}
 }
