@@ -48,25 +48,22 @@ class Inventory extends FlxObject
 
 		for (i in -halflen...halflen)
 		{
-			if (i == slot - halflen)
+			if (slot_graphic_bg != null)
 			{
-				if (slot_graphic_slot_selection != null)
-				{
-					slot_graphic_slot_selection.cameras = cameras;
-					slot_graphic_slot_selection.x = this.x + (i * INVENTORY_SLOT_SIZE);
-					slot_graphic_slot_selection.y = this.y;
-					slot_graphic_slot_selection.draw();
-				}
+				slot_graphic_bg.cameras = cameras;
+				slot_graphic_bg.x = this.x + (i * INVENTORY_SLOT_SIZE);
+				slot_graphic_bg.y = this.y;
+				slot_graphic_bg.draw();
 			}
-			else
+
+			// item rendered here
+
+			if (i == slot - halflen && slot_graphic_slot_selection != null)
 			{
-				if (slot_graphic_bg != null)
-				{
-					slot_graphic_bg.cameras = cameras;
-					slot_graphic_bg.x = this.x + (i * INVENTORY_SLOT_SIZE);
-					slot_graphic_bg.y = this.y;
-					slot_graphic_bg.draw();
-				}
+				slot_graphic_slot_selection.cameras = cameras;
+				slot_graphic_slot_selection.x = this.x + (i * INVENTORY_SLOT_SIZE);
+				slot_graphic_slot_selection.y = this.y;
+				slot_graphic_slot_selection.draw();
 			}
 
 			if (slot_graphic_slot_outline != null)
