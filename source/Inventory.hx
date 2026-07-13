@@ -25,16 +25,20 @@ class Inventory extends FlxObject
 	var slot_graphic_bg:InventorySlotGraphic;
 	var slot_graphic_slot_outline:InventorySlotGraphic;
 	var slot_graphic_slot_selection:InventorySlotGraphic;
-	var slot_graphic_slot_item:InventorySlotGraphic;
+	var slot_graphic_slot_item:Item;
 
 	override public function new()
 	{
 		super();
 
 		slot_graphic_bg = new InventorySlotGraphic('bg');
-		slot_graphic_slot_outline = new InventorySlotGraphic('slot');
+
 		slot_graphic_slot_selection = new InventorySlotGraphic('selection');
-		slot_graphic_slot_item = new InventorySlotGraphic('slot');
+		slot_graphic_slot_selection.alpha = 0.3;
+
+		slot_graphic_slot_item = new Item(null);
+
+		slot_graphic_slot_outline = new InventorySlotGraphic('slot');
 
 		for (i in 0...INVENTORY_SLOTS)
 		{
@@ -48,30 +52,24 @@ class Inventory extends FlxObject
 
 		for (i in -halflen...halflen)
 		{
-			if (slot_graphic_bg != null)
-			{
-				slot_graphic_bg.cameras = cameras;
-				slot_graphic_bg.x = this.x + (i * INVENTORY_SLOT_SIZE);
-				slot_graphic_bg.y = this.y;
-				slot_graphic_bg.draw();
-			}
+			var render = [
+				((i == slot - halflen) ? slot_graphic_slot_selection : slot_graphic_bg),
+				slot_graphic_slot_item,
+				slot_graphic_slot_outline,
+			];
 
-			// item rendered here
+			slot_graphic_slot_item?.setTile('wheat');
+			slot_graphic_slot_item?.offset.subtract(2, 2);
 
-			if (i == slot - halflen && slot_graphic_slot_selection != null)
+			for (renderable in render)
 			{
-				slot_graphic_slot_selection.cameras = cameras;
-				slot_graphic_slot_selection.x = this.x + (i * INVENTORY_SLOT_SIZE);
-				slot_graphic_slot_selection.y = this.y;
-				slot_graphic_slot_selection.draw();
-			}
+				if (renderable == null)
+					continue;
 
-			if (slot_graphic_slot_outline != null)
-			{
-				slot_graphic_slot_outline.cameras = cameras;
-				slot_graphic_slot_outline.x = this.x + (i * INVENTORY_SLOT_SIZE);
-				slot_graphic_slot_outline.y = this.y;
-				slot_graphic_slot_outline.draw();
+				renderable.cameras = cameras;
+				renderable.x = this.x + (i * INVENTORY_SLOT_SIZE);
+				renderable.y = this.y;
+				renderable.draw();
 			}
 		}
 	}

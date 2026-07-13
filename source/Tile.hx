@@ -11,6 +11,9 @@ class Tile extends FlxLayeredSprite<TileLayer>
 
 	public function setTile(_id:String)
 	{
+		if (_id == null)
+			return;
+
 		this.id = _id.toLowerCase();
 
 		loadTileGraphic(_id);
