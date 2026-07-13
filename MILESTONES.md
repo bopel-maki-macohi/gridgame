@@ -9,7 +9,7 @@
 
 - [x] Milestone 4 : Grid tile clicking
 
-- [ ] Milestone 5 : Farming
+- [x] Milestone 5 : Farming
 
 - [ ] Milestone 6 : Inventory
 
