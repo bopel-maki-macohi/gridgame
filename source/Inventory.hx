@@ -1,3 +1,5 @@
+import flixel.FlxSprite;
+import flixel.system.FlxAssets.FlxShader;
 import InventorySlot.InventorySlotGraphic;
 import flixel.FlxObject;
 import flixel.util.FlxAxes;
@@ -67,7 +69,7 @@ class Inventory extends FlxObject
 		{
 			final i = increment - halflen;
 
-			var render:Array<FlxObject> = [
+			var render:Array<FlxSprite> = [
 				slot_graphic_bg,
 				((slot.item != null && slot.item != '') ? slot_graphic_slot_item : null),
 				((i == this.slot - halflen) ? slot_graphic_slot_selection : slot_graphic_slot_outline),
@@ -80,6 +82,9 @@ class Inventory extends FlxObject
 			{
 				if (renderable == null)
 					continue;
+
+				if (renderable.shader == null)
+					renderable.shader = new FlxShader();
 
 				renderable.cameras = cameras;
 				renderable.x = this.x + (i * INVENTORY_SLOT_SIZE);
