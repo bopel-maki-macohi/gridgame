@@ -23,8 +23,8 @@ class Inventory extends FlxObject
 	}
 
 	var slot_graphic_bg:InventorySlotGraphic;
-	var slot_graphic_slot_outline:InventorySlotGraphic;
 	var slot_graphic_slot_selection:InventorySlotGraphic;
+	var slot_graphic_slot_outline:InventorySlotGraphic;
 	var slot_graphic_slot_item:Item;
 
 	override public function new()
@@ -33,12 +33,12 @@ class Inventory extends FlxObject
 
 		slot_graphic_bg = new InventorySlotGraphic('bg');
 
-		slot_graphic_slot_selection = new InventorySlotGraphic('selection');
-		slot_graphic_slot_selection.alpha = 0.3;
+		slot_graphic_slot_outline = new InventorySlotGraphic('selection');
+		slot_graphic_slot_outline.alpha = 0.3;
 
 		slot_graphic_slot_item = new Item(null);
 
-		slot_graphic_slot_outline = new InventorySlotGraphic('slot');
+		slot_graphic_slot_selection = new InventorySlotGraphic('slot');
 
 		for (i in 0...INVENTORY_SLOTS)
 		{
@@ -53,9 +53,9 @@ class Inventory extends FlxObject
 		for (i in -halflen...halflen)
 		{
 			var render = [
-				((i == slot - halflen) ? slot_graphic_slot_selection : slot_graphic_bg),
+				slot_graphic_bg,
 				slot_graphic_slot_item,
-				slot_graphic_slot_outline,
+				((i == slot - halflen) ? slot_graphic_slot_selection : slot_graphic_slot_outline),
 			];
 
 			slot_graphic_slot_item?.setTile('wheat');
