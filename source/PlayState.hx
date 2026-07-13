@@ -6,16 +6,22 @@ import flixel.FlxState;
 
 class PlayState extends FlxState
 {
+	public static var instance:PlayState;
+
 	var width:Int = 16;
 	var height:Int = 4;
 
-	var grid:FlxTypedSpriteGroup<FunctionalGridTile>;
+	public var grid:FlxTypedSpriteGroup<FunctionalGridTile>;
 
-	var inventory:Inventory;
+	public var inventory:Inventory;
 
 	override function create()
 	{
 		super.create();
+
+		if (instance != null)
+			instance = null;
+		instance = this;
 
 		grid = new FlxTypedSpriteGroup<FunctionalGridTile>();
 		add(grid);

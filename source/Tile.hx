@@ -54,6 +54,8 @@ class Tile extends FlxLayeredSprite<TileLayer>
 
 	public var data:Dynamic = {};
 
+	var clickable:Bool = true;
+
 	override public function new(id:String, ?x:Float = 0, ?y:Float = 0)
 	{
 		super(x, y);
@@ -75,15 +77,15 @@ class Tile extends FlxLayeredSprite<TileLayer>
 			tick_timer = 0;
 		}
 
-		if (FlxG.mouse.overlaps(this) && FlxG.mouse.justPressed)
+		if (FlxG.mouse.overlaps(this) && FlxG.mouse.justPressed && clickable)
 		{
-			clicked();
+			clicked(PlayState.instance?.inventory?.slots[PlayState.instance?.inventory?.slot].item);
 		}
 	}
 
 	public function tick() {}
 
-	public function clicked() {}
+	public function clicked(slot:String) {}
 
 	public function loadTileGraphic(_id:String)
 	{

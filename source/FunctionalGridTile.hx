@@ -67,17 +67,19 @@ class FunctionalGridTile extends GridTile
 		}
 	}
 
-	override function clicked()
+	override function clicked(slot:String)
 	{
-		super.clicked();
+		super.clicked(slot);
 
 		switch (id)
 		{
 			case 'dirt':
-				setTile('dirt-tilled');
+				if (slot == 'hoe')
+					setTile('dirt-tilled');
 
 			case 'dirt-tilled':
-				setTile('wheat');
+				if (slot == 'wheat')
+					setTile('wheat');
 		}
 	}
 

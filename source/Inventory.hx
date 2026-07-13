@@ -46,6 +46,7 @@ class Inventory extends FlxObject
 		}
 
 		setSlot(0, 'wheat');
+		setSlot(1, 'hoe');
 	}
 
 	public function setSlot(slot = 0, item = '')
