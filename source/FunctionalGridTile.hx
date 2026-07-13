@@ -16,10 +16,9 @@ class FunctionalGridTile extends GridTile
 				wheat_layer.animation.add('growth', [0, 1, 2], 1, false);
 				wheat_layer.animation.pause();
 				wheat_layer.animation.frameIndex = 0;
-				wheat_layer.visible = false;
 				graphic_layers.push(wheat_layer);
 
-				data.growth = -1;
+				data.growth = 0;
 				data.growth_max = 2;
 				data.growth_tick = getWaitTick(32, 10, 20);
 		}
@@ -41,7 +40,7 @@ class FunctionalGridTile extends GridTile
 				{
 					if (tick_value > data.growth_tick && tick_random.bool(10))
 					{
-						if (data.growth >= 0)
+						if (data.growth > 0)
 							data.growth++;
 						else
 						{
@@ -52,8 +51,6 @@ class FunctionalGridTile extends GridTile
 						}
 
 						graphic_layers[0].animation.frameIndex = data.growth;
-						graphic_layers[0].visible = data.growth >= 0;
-
 						tick_value = 0;
 					}
 
@@ -78,8 +75,15 @@ class FunctionalGridTile extends GridTile
 					setTile('dirt-tilled');
 
 			case 'dirt-tilled':
+				if (slot == 'hoe')
+					setTile('dirt-farming');
+
+			case 'dirt-farming':
 				if (slot == 'wheat')
 					setTile('wheat');
+
+				if (slot == 'hoe')
+					setTile('dirt-tilled');
 		}
 	}
 
