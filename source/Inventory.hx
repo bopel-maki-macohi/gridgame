@@ -33,12 +33,12 @@ class Inventory extends FlxObject
 
 		slot_graphic_bg = new InventorySlotGraphic('bg');
 
-		slot_graphic_slot_outline = new InventorySlotGraphic('outline');
+		slot_graphic_slot_outline = new InventorySlotGraphic('border');
 		slot_graphic_slot_outline.alpha = 0.3;
 
 		slot_graphic_slot_item = new Item(null);
 
-		slot_graphic_slot_selection = new InventorySlotGraphic('selection');
+		slot_graphic_slot_selection = new InventorySlotGraphic('border');
 
 		for (i in 0...INVENTORY_SLOTS)
 		{
